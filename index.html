@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>World Clock App</title>
+        <link rel="stylesheet" href="../Resources/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css">
+        <style>
+            body{
+                background-color: #333;
+                color: #fff;    
+            }
+            #local-hour{
+                text-align: center;margin-left: 27%;width: 20%;margin-right: 1.5%; height: 70px;background-color: black;font-size: 50px;color: white;
+            }
+            
+            #local-minute{
+                background-color: black;font-size: 50px;color: white;margin-left: 1.5%; margin-right: 27%; width: 20%;height: 70px;text-align: center;font-weight:100
+            }
+
+        </style>
+    </head>
+    <body onload=montrealTime()>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+
+
+                    <h1 class="display-3 text-center">World Clock</h1>
+                    <h5 style="text-align: center; font-weight: 100">Enter Indian Standard Time here </h5>
+                    <form class="form-inline">
+                        
+
+
+                            <input id="local-hour" min="0" max="23" type="number" placeholder="Hr" class="mb-3 form-control form-label-lg" value="00">
+
+                            <input id="local-minute" min="0" max="59" type="number" placeholder="Min" class="mb-3 form-control form-label-lg" value="00">
+
+
+                        
+                    </form>
+                    <div class="timeoutput">
+                        <div class="row">
+
+                            <div class="card card-primary col-4 mr-4">
+                                <div class="card-block">
+                                    <h4>Montreal Time: </h4>
+                                </div>
+                            </div>
+
+                            <div class="card card-warning col-3 mr-2">
+                                <div class="card-block">
+                                    <h1 id="montreal-hour"></h1>
+                                </div>
+                            </div>
+                            <div class="card card-success col-3">
+                                <div class="card-block">
+                                    <h1 id="montreal-min"></h1>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <script>
+            
+
+            var localHour, localMinute
+            var montHour,montMin;
+
+            document.getElementById('local-hour').addEventListener('input',function(e=0){
+
+                localHour = e.target.value;
+                console.log(localHour);
+                montrealTime();
+            })
+            document.getElementById('local-minute').addEventListener('input',function(f=0){
+                localMinute= f.target.value;
+                console.log(localMinute);
+                montrealTime();
+            })
+
+            function montrealTime(){
+                if(localHour===undefined || localMinute===undefined){
+                    localHour=0;
+                    localMinute=0;
+                }
+                if(localHour>=10)
+                {
+                    montHour = localHour-10;        
+                }
+                else{
+                    montHour = 24+(localHour-10);
+                }
+                if(localMinute>=30){
+                    montMin= localMinute-30;    
+                }
+                else{
+                    montMin= 60+(localMinute-30);
+                }
+
+                document.getElementById('montreal-hour').innerHTML=montHour;
+                document.getElementById('montreal-min').innerHTML=montMin;
+            }
+
+
+        </script>
+
+        <script src="../Resources/jquery-3.2.1.min.js"></script>
+        <script src="../Resources/tether-1.3.3/dist/js/tether.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="../Resources/bootstrap-4.0.0-alpha.6-dist/js/bootstrap.min.js"></script>
+
+
+    </body>
+</html>
