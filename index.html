@@ -12,9 +12,13 @@
             #local-hour{
                 text-align: center;margin-left: 27%;width: 20%;margin-right: 1.5%; height: 70px;background-color: black;font-size: 50px;color: white;
             }
-            
+
             #local-minute{
                 background-color: black;font-size: 50px;color: white;margin-left: 1.5%; margin-right: 27%; width: 20%;height: 70px;text-align: center;font-weight:100
+            }
+            
+            #current-hour,#current-min,#current-sec,#current-suffix{
+                text-align: center;
             }
 
         </style>
@@ -28,15 +32,15 @@
                     <h1 class="display-3 text-center">World Clock</h1>
                     <h5 style="text-align: center; font-weight: 100">Enter Indian Standard Time here </h5>
                     <form class="form-inline">
-                        
 
 
-                            <input id="local-hour" min="0" max="23" type="number" placeholder="Hr" class="mb-3 form-control form-label-lg" value="00">
 
-                            <input id="local-minute" min="0" max="59" type="number" placeholder="Min" class="mb-3 form-control form-label-lg" value="00">
+                        <input id="local-hour" min="0" max="23" type="number" placeholder="Hr" class="mb-3 form-control form-label-lg" value="00">
+
+                        <input id="local-minute" min="0" max="59" type="number" placeholder="Min" class="mb-3 form-control form-label-lg" value="00">
 
 
-                        
+
                     </form>
                     <div class="timeoutput">
                         <div class="row">
@@ -57,10 +61,36 @@
                                     <h1 id="montreal-min"></h1>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
+                    <h1 style="font-weight: 100">Current Time</h1>
+                    <div class="container">
+                        <div class="row">
+                            
+
+                            <div class="card card-warning col-3 mr-1">
+                                <div class="card-block">
+                                    <h1 id="current-hour"></h1>
+                                </div>
+                            </div>
+                            <div class="card card-success col-3 mr-1">
+                                <div class="card-block">
+                                    <h1 id="current-min"></h1>
+                                </div>
+                            </div>
+                            <div class="card card-success col-3 mr-1">
+                                <div class="card-block">
+                                    <h1 id="current-sec"></h1>
+                                </div>
+                            </div>
+                            <div class="card card-success col-3">
+                                <div class="card-block">
+                                    <h1 id="current-suffix"></h1>
+                                </div>
+                            </div>
 
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -70,7 +100,7 @@
 
 
         <script>
-            
+
 
             var localHour, localMinute
             var montHour,montMin;
@@ -109,6 +139,42 @@
                 document.getElementById('montreal-hour').innerHTML=montHour;
                 document.getElementById('montreal-min').innerHTML=montMin;
             }
+
+            //New stuff
+            (function now(){
+                var current = new Date();
+
+
+                var currentHour = current.getHours();
+                var currentMin = current.getMinutes();
+                var currentSec = current.getSeconds();
+
+                if(currentHour>12)
+                {
+                    currentHour=currentHour%12;
+                    var suffix = "PM";
+                }
+                else if(currentHour=12)
+                {
+                    suffix="PM";
+                }
+                else if(currentHour<12){
+                    suffix="AM";
+                }
+                currentMin = currentMin<10 ? "0"+currentMin : currentMin;
+
+                currentSec = currentSec<10 ? "0"+currentSec : currentSec;
+                document.getElementById('current-hour').innerHTML=currentHour;
+                document.getElementById('current-min').innerHTML=currentMin;
+                document.getElementById('current-sec').innerHTML= currentSec;
+                document.getElementById('current-suffix').innerHTML= suffix ;
+
+                setInterval(function(){
+                    now()
+                },500);
+
+            })();
+
 
 
         </script>
